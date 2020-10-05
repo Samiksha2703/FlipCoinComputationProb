@@ -33,17 +33,41 @@ done
 
 echo ${Singlet[@]}
 
+count1=($head $tail)
 
-echo "Head=$head" "Tail=$tail"
+echo "Head=$head"  "Tail=$tail"
 
+max=0
 
-        percent_H=`echo "scale=2; $head / 10 * 100" | bc -l`
+for (( i=0; i<${#count1[@]}; i++ ))
+do
 
-        percent_T=`echo "scale=2; $tail / 10 * 100" | bc -l`
+if [ ${count1[$i]} -gt $max ]
+        then
+        max=${count1[$i]}
+        ind=$i
+        count=0
 
+elif [ ${count1[$i]} -eq $max ]
+        then
+        max=${count1[$i]}
+        count=1
+fi
 
-echo "Percentage of getting Head : $percent_H Tail : $percent_T"
+done
 
+if [ $count -eq 0 ]
+then
+
+percent=`echo "scale=2; $max / 10 * 100" | bc -l`
+
+echo "Percentage of getting ${Comb1[ind]} is maximum $percent"
+
+else
+
+echo "Two or more entity have same value"
+
+fi
 
 }
 
@@ -82,26 +106,45 @@ random=$(( $RANDOM % 4 ))
         esac
 
         Doublet[$i]=${Comb2[$random]}
-
 done
-
 
 echo ${Doublet[@]}
 
+count2=($hh $ht $th $tt)
 
-echo "HH=$hh" "HT=$ht" "TH=$th" "TT=$tt"
+echo "HH=$hh"  "HT=$ht"  "TH=$th"  "TT=$tt"
 
+max=0
 
-        percent_HH=`echo "scale=2; $hh / 10 * 100" | bc -l`
+for (( i=0; i<${#count2[@]}; i++ ))
+do
 
-        percent_HT=`echo "scale=2; $ht / 10 * 100" | bc -l`
+if [ ${count2[$i]} -gt $max ]
+        then
+        max=${count2[$i]}
+        ind=$i
+        count=0
 
-        percent_TH=`echo "scale=2; $th / 10 * 100" | bc -l`
+elif [ ${count2[$i]} -eq $max ]
+        then
+        max=${count2[$i]}
+        count=1
+fi
 
-        percent_TT=`echo "scale=2; $tt / 10 * 100" | bc -l`
+done
 
+if [ $count -eq 0 ]
+then
 
-echo "Percentage of getting HH : $percent_HH HT : $percent_HT TH : $percent_TH TT : $percent_TT"
+percent=`echo "scale=2; $max / 10 * 100" | bc -l`
+
+echo "Percentage of getting ${Comb2[ind]} is maximum $percent"
+
+else
+
+echo "Two or more entity have same value"
+
+fi
 
 }
 
@@ -109,7 +152,7 @@ triplet() {
 
 declare -A Triplet
 
-Comb=(HHH HHT HTH THH TTT TTH THT HTT)
+Comb3=(HHH HHT HTH THH TTT TTH THT HTT)
 
 hhh=0
 hht=0
@@ -161,37 +204,47 @@ random=$(( $RANDOM % 7 ))
 
 	esac
 
-        Triplet[$i]=${Comb[$random]}
+        Triplet[$i]=${Comb3[$random]}
 
 done
 
 echo ${Triplet[@]}
 
+count3=($hhh $hht $hth $thh $ttt $tth $tht $htt)
 
-echo "HHH=$hhh" "HHT=$hht" "HTH=$hth" "THH=$thh" "TTT=$ttt" "TTH=$tth" "THT=$tht" "HTT=$htt"
+echo "HHH=$hhh"  "HHT=$hht"  "HTH=$hth"  "THH=$thh"  "TTT=$ttt"  "TTH=$tth"  "THT=$tht"  "HTT=$htt"
 
+max=0
 
-        percent_HHH=`echo "scale=2; $hhh / 10 * 100" | bc -l`
+for (( i=0; i<${#count3[@]}; i++ ))
+do
 
-        percent_HHT=`echo "scale=2; $hht / 10 * 100" | bc -l`
+if [ ${count3[$i]} -gt $max ]
+        then 
+	max=${count3[$i]}
+        ind=$i
+	count=0
 
-        percent_HTH=`echo "scale=2; $hth / 10 * 100" | bc -l`
+elif [ ${count3[$i]} -eq $max ]
+	then 
+	max=${count3[$i]}
+	count=1
+fi
 
-        percent_THH=`echo "scale=2; $thh / 10 * 100" | bc -l`
+done
 
-        percent_THH=`echo "scale=2; $thh / 10 * 100" | bc -l`
+if [ $count -eq 0 ]
+then
 
-        percent_TTT=`echo "scale=2; $ttt / 10 * 100" | bc -l`
+percent=`echo "scale=2; $max / 10 * 100" | bc -l`
 
-        percent_TTH=`echo "scale=2; $tth / 10 * 100" | bc -l`
+echo "Percentage of getting ${Comb3[ind]} is maximum $percent"
 
-        percent_THT=`echo "scale=2; $tht / 10 * 100" | bc -l`
+else 
 
-        percent_HTT=`echo "scale=2; $htt / 10 * 100" | bc -l`
+echo "Two or more entity have same value"
 
-
-echo "Percentage of getting HHH : $percent_HHH HHT : $percent_HHT HTH : $percent_HTH THH : $percent_THH TTT : $percent_TTT TTH : $percent_TTH THT : $percent_THT HTT : $percent_HTT"
-
+fi
 
 }
 
@@ -219,3 +272,4 @@ case $choice in
 	triplet
 	;;
 	esac
+
